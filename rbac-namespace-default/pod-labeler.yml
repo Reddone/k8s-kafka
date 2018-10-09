@@ -5,13 +5,13 @@
 # Error from server (Forbidden): pods "kafka-2" is forbidden: User "system:serviceaccount:kafka:default" cannot get pods in the namespace "kafka": Unknown user "system:serviceaccount:kafka:default"
 #
 ---
-kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
 metadata:
-  name: pod-labler
+  name: pod-labeler
   namespace: kafka
   labels:
-    origin: github.com_Yolean_kubernetes-kafka
+    origin: github.com/Yolean/kubernetes-kafka
 rules:
 - apiGroups:
   - ""
@@ -22,17 +22,17 @@ rules:
   - update
   - patch
 ---
-kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
 metadata:
-  name: kafka-pod-labler
+  name: kafka-pod-labeler
   namespace: kafka
   labels:
-    origin: github.com_Yolean_kubernetes-kafka
+    origin: github.com/Yolean/kubernetes-kafka
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: pod-labler
+  name: pod-labeler
 subjects:
 - kind: ServiceAccount
   name: default

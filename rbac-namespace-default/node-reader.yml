@@ -7,12 +7,12 @@
 # Error from server (Forbidden): User "system:serviceaccount:kafka:default" cannot get nodes at the cluster scope.: "Unknown user \"system:serviceaccount:kafka:default\""
 #
 ---
-kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
 metadata:
   name: node-reader
   labels:
-    origin: github.com_Yolean_kubernetes-kafka
+    origin: github.com/Yolean/kubernetes-kafka
 rules:
 - apiGroups:
   - ""
@@ -21,12 +21,12 @@ rules:
   verbs:
   - get
 ---
-kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
 metadata:
   name: kafka-node-reader
   labels:
-    origin: github.com_Yolean_kubernetes-kafka
+    origin: github.com/Yolean/kubernetes-kafka
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

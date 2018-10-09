@@ -14,7 +14,9 @@ spec:
     spec:
       containers:
       - name: metrics
-        image: solsson/kafka-prometheus-jmx-exporter@sha256:a23062396cd5af1acdf76512632c20ea6be76885dfc20cd9ff40fb23846557e8
+        image: reddone/kafka-prometheus-jmx-exporter:1.0@sha256:8ec07c4791d78a766b36e4acf419b88eef1c6818ce835fc6772a77bc3d258d26
+        ports:
+        - containerPort: 5556
         command:
         - java
         - -XX:+UnlockExperimentalVMOptions
@@ -25,8 +27,6 @@ spec:
         - jmx_prometheus_httpserver.jar
         - "5556"
         - /etc/jmx-kafka/jmx-kafka-prometheus.yml
-        ports:
-        - containerPort: 5556
         resources:
           requests:
             cpu: 0m

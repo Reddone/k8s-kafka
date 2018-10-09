@@ -16,11 +16,12 @@ spec:
       labels:
         app: kafka
       annotations:
+        branch: develop-1.0.x
     spec:
       terminationGracePeriodSeconds: 30
       initContainers:
       - name: init-config
-        image: solsson/kafka-initutils@sha256:18bf01c2c756b550103a99b3c14f741acccea106072cd37155c6d24be4edd6e2
+        image: reddone/kafka-initutils:1.0@sha256:f260374f3d3de3a37a2dafce68bfa1193a0b4067d12e7ff8382236154ec290ac
         env:
         - name: NODE_NAME
           valueFrom:
@@ -42,7 +43,7 @@ spec:
           mountPath: /etc/kafka
       containers:
       - name: broker
-        image: solsson/kafka:1.0.2@sha256:7fdb326994bcde133c777d888d06863b7c1a0e80f043582816715d76643ab789
+        image: reddone/kafka:1.0@sha256:20ed8677c465a749c4d97a023204111833fa3c5ce66021647331d9493f4f8ec2
         env:
         - name: KAFKA_LOG4J_OPTS
           value: -Dlog4j.configuration=file:/etc/kafka/log4j.properties
