@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -18,12 +19,13 @@ spec:
         app: zookeeper
         storage: ephemeral
       annotations:
-        branch: develop-1.0.x
+        kafka-initutils-tag: "1.0"
+        kafka-tag: "1.0"
     spec:
       terminationGracePeriodSeconds: 10
       initContainers:
       - name: init-config
-        image: reddone/kafka-initutils:1.0@sha256:f260374f3d3de3a37a2dafce68bfa1193a0b4067d12e7ff8382236154ec290ac
+        image: reddone/kafka-initutils@sha256:f260374f3d3de3a37a2dafce68bfa1193a0b4067d12e7ff8382236154ec290ac
         command: ['/bin/bash', '/etc/kafka-configmap/init.sh']
         env:
         - name: ID_OFFSET
@@ -37,7 +39,7 @@ spec:
           mountPath: /var/lib/zookeeper/data
       containers:
       - name: zookeeper
-        image: reddone/kafka:1.0@sha256:20ed8677c465a749c4d97a023204111833fa3c5ce66021647331d9493f4f8ec2
+        image: reddone/kafka@sha256:20ed8677c465a749c4d97a023204111833fa3c5ce66021647331d9493f4f8ec2
         env:
         - name: KAFKA_LOG4J_OPTS
           value: -Dlog4j.configuration=file:/etc/kafka/log4j.properties

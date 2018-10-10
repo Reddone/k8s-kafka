@@ -1,5 +1,7 @@
 # meant to be applied using
+# kubectl --namespace kafka apply -f prometheus/10-metrics-config.yml 
 # kubectl --namespace kafka patch statefulset kafka --patch "$(cat prometheus/50-kafka-jmx-exporter-patch.yml )"
+---
 apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
@@ -11,12 +13,14 @@ spec:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "5556"
+        kafka-prometheus-jmx-exporter-tag: "1.0"
     spec:
       containers:
       - name: metrics
-        image: reddone/kafka-prometheus-jmx-exporter:1.0@sha256:8ec07c4791d78a766b36e4acf419b88eef1c6818ce835fc6772a77bc3d258d26
+        image: reddone/kafka-prometheus-jmx-exporter@sha256:8ec07c4791d78a766b36e4acf419b88eef1c6818ce835fc6772a77bc3d258d26
         ports:
-        - containerPort: 5556
+        - name: prometheus
+          containerPort: 5556
         command:
         - java
         - -XX:+UnlockExperimentalVMOptions

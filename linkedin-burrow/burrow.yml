@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
@@ -15,6 +16,9 @@ spec:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "8080"
+        burrow-tag: "latest"
+        burrow-exporter-tag: "latest"
+        burrow-dashboard-tag: "latest"
     spec:
       containers:
       - name: burrow

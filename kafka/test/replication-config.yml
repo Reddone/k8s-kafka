@@ -1,10 +1,10 @@
 # https://github.com/Yolean/kubernetes-kafka/pull/140
 ---
+apiVersion: v1
 kind: ConfigMap
 metadata:
   name: replication-config
   namespace: test-kafka
-apiVersion: v1
 data:
 
   setup.sh: |-
