@@ -1,0 +1,24 @@
+# local path specified in spec must exist on target node
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-pv-broker-0
+spec:
+  capacity:
+    storage: 200Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: kafka-broker
+  local:
+    path: /mnt/disks/broker0
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          # replace with hostname-0
+          - my-node-0

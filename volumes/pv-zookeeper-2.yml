@@ -1,0 +1,24 @@
+# local path specified in spec must exist on target node
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-pv-zookeeper-2
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: kafka-zookeeper
+  local:
+    path: /mnt/disks/zookeeper2
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          # replace with hostname-2
+          - my-node-2
